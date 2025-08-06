@@ -28,7 +28,7 @@ external_stylesheets = [
 ]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-app.title = "Fund Analysis"
+app.title = "Investment Fund Statistics"
 
 app.layout = html.Div(id="react-entry-point", children=[
     html.Div(id="jur-modal", children=[
@@ -36,7 +36,7 @@ app.layout = html.Div(id="react-entry-point", children=[
             html.Div(className="header_content", children=[
                 html.Div(className="header_logo", style={"display": "flex", "alignItems": "center"}, children=[
                     html.Img(src="assets/logo.png", style={"width": "100px", "marginRight": "12px"}),
-                    html.H1("MF Analysis", style={"margin": "0", "font-weight": "700", "fontSize": "30px"})
+                    html.H1("Investment Fund Statistics", style={"margin": "0", "font-weight": "600", "fontSize": "30px"})
                 ]),
                 html.Div(className="header_dropdown", children=[
                     html.Div(className="h_year_drop", children=[
