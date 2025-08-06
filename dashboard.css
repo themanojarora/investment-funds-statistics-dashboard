@@ -1,0 +1,598 @@
+/* General Improvements for Flexibility */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%;
+    /* Crucial: set height to 100% for percentage heights to work correctly */
+}
+
+.dash-logout-btn {
+    padding: 1rem;
+    background-color: #119DFF;
+    border: 1px solid #119DFF;
+    color: #ffffff;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.dash-logout-btn:hover,
+.dash-logout-btn:focus {
+    background-color: #0d76bf;
+    border: 1px solid #0d76bf;
+}
+
+.dash-logout-frame {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+/* ---------------------- Disclaimer > Modal ----------------------*/
+@media only screen and (max-height: 850px) {
+    .disclaimer {
+        height: 55%;
+        background-color: #000032;
+        border-radius: 5%;
+        text-align: center;
+        float: left;
+        color: #fff;
+        padding: 20px;
+    }
+}
+
+@media only screen and (min-height: 851px) {
+    .disclaimer {
+        height: 60%;
+        background-color: #000032;
+        border-radius: 5%;
+        text-align: center;
+        float: left;
+        color: #fff;
+        padding: 20px;
+    }
+}
+
+.disclaimer p {
+    font-size: 1em;
+    display: inherit;
+}
+
+.disclaimer li {
+    font-size: 0.9em;
+    margin-left: 5%;
+}
+
+.disclaimer_head {
+    width: 100%;
+    text-align: center;
+}
+
+.disclaimer_head h5 {
+    font-weight: lighter;
+    font-size: 130%;
+}
+
+.disclaimer-link {
+    font-size: 1em;
+    text-decoration: none;
+    color: #4e63c2;
+}
+
+
+/* ---------------------- Header ----------------------*/
+.header_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: left_indent;
+    background: #4e63c2;
+    color: white;
+    flex-wrap: wrap;
+}
+
+.header_content {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    /* Three columns on larger screens */
+    gap: 10px;
+    height: 80px;
+    padding-top: 15px;
+}
+
+.header_logo {
+    
+    margin-top: -10px;
+}
+
+/* Responsive Header Layout for Small Screens */
+@media only screen and (max-width: 822px) {
+    .header_wrapper {
+        align-items: center;
+        font-size: 1.1rem;
+    }
+
+    .header_content {
+        grid-template-columns: 1fr;
+        /* Two columns on larger screens */
+        height: auto;
+        width: 80%;
+        color: #000;
+        margin: 0 auto;
+        font-size: 1.1rem;
+    }
+
+    .header_logo {
+        margin: 0 auto;
+        padding-bottom: 10px;
+    }
+
+    .header_dropdown p {
+        line-height: 0.6em;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .h_year_drop,
+    .h_fund_drop,
+    .h_jur_drop {
+        padding-bottom: 10px;
+        font-size: 1.1em;
+    }
+
+    .header_button_div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        /* Three columns on larger screens */
+        gap: 5px;
+        width: 100%;
+        padding-bottom: 5px;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+}
+
+/* Standard header layout */
+@media only screen and (min-width: 823px) {
+    .header_dropdown {
+        display: grid;
+        grid-template-columns: 20% 37% 43%;
+        /* Three columns on larger screens */
+        justify-content: space-between;
+        gap: 10px;
+        padding: 0;
+        margin: 0 auto;
+        list-style-type: none;
+        color: #000;
+        width: 90%;
+        padding-right: 10%;
+    }
+
+    .header_dropdown p {
+        line-height: 0.6em;
+        font-size: 1.1em;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .h_year_drop,
+    .h_fund_drop,
+    .h_jur_drop {
+        font-size: 1.3em;
+    }
+
+    .header_button_div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+        width: 100%;
+        padding-top: 10px;
+        padding-right: 20%;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+}
+
+.header_button_div button {
+    background: #FFF;
+    border: #4e63c2;
+    height: 40px;
+    font-size: 1.3em;
+}
+
+.header_button_div button:hover {
+    color: #4e63c2;
+}
+
+.header_button_div button:active {
+    background: #273261;
+    border: #4e63c2;
+    color: #FFF;
+}
+
+
+/*
+---------------------------------------------------------------------
+                               Content
+---------------------------------------------------------------------
+*/
+
+
+/* ---------------------- Content Wrapper ----------------------*/
+
+.content_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+    height: calc(100% - 80px);
+    /* Content takes remaining height */
+    /* overflow-y: auto; /* Enables scrolling for overflowing content */
+}
+
+/*
+.content_wrapper ul {
+	list-style-type: none;
+	display: inline-flex;
+	justify-content: center;
+}
+.content_wrapper li {
+	display: list-item;
+}
+*/
+
+/* ---------------------- Market Data Section ----------------------*/
+/* Standard header layout */
+@media only screen and (min-width: 823px) {
+    .market_list {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        justify-content: space-between;
+        gap: 1%;
+        margin-top: 1%;
+        height: 120px;
+        width: 100%;
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+
+    .jur_data_boxes {
+        gap: 3%;
+        padding-left: 5%;
+        padding-right: 5%;
+        height: auto;
+    }
+
+    .jur_data_box {
+        height: 70px;
+        border-radius: 2%;
+        padding-top: 5%;
+    }
+
+    .jur_data_box h5 {
+        font-size: 1.75em;
+        line-height: 1.5em;
+    }
+
+    .jur_data_box p {
+        line-height: 0.8em;
+        font-size: 1.5em;
+    }
+
+    .jut_data_box i {
+        line-height: 0.2em;
+        font-size: 0.5em;
+    }
+
+    .jur_data_alt {
+        margin-top: 0.5%;
+        padding-left: 5%;
+    }
+
+}
+
+/* Responsive Header Layout for Small Screens */
+@media only screen and (max-width: 822px) {
+    .market_list {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .market_list_item {
+        margin-bottom: 2%;
+        margin-left: 1%;
+        margin-right: 1%;
+        margin-top: 2%;
+    }
+
+    .jur_data_boxes {
+        height: 110px;
+        gap: 1%;
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+
+    .jur_data_box {
+        padding-top: 20%;
+        height: 100px;
+        border-radius: 4%;
+    }
+
+    .jur_data_box h5 {
+        font-size: 1.75em;
+        line-height: 1em;
+    }
+
+    .jur_data_box p {
+        line-height: 0.8em;
+        font-size: 1em;
+    }
+
+    .jut_data_box i {
+        line-height: 0.2em;
+        font-size: 0.5em;
+    }
+
+    .jur_data_alt {
+        margin-top: 0;
+        padding-left: 2%;
+    }
+}
+
+.market_list_item {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+    min-height: 120px;
+    background-color: #f0f3f5;
+}
+
+.market_data_head {
+    width: 100%;
+    text-align: center;
+    padding-top: 1%;
+    height: 30px;
+}
+
+.market_data_head h5 {
+    font-weight: lighter;
+    font-size: 1.75em;
+}
+
+.market_data_boxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    gap: 8%;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.market_data_box {
+    background-color: #000032;
+    border-radius: 2%;
+    text-align: center;
+    float: left;
+    color: #fff;
+    padding-top: 5%;
+    height: 70px;
+}
+
+.market_data_box h5 {
+    font-size: 1.75em;
+    line-height: 1.5em;
+    font-weight: bold;
+}
+
+.market_data_box p {
+    line-height: 0.8em;
+    font-size: 1.5em;
+}
+
+.market_data_alt {
+    text-align: left;
+    margin-top: 1.5%;
+    padding-left: 8%;
+    color: #000;
+}
+
+.market_data_alt p {
+    line-height: 0.7em;
+    font-size: 1em;
+}
+
+.jur_data_head {
+    width: 100%;
+    text-align: center;
+    padding-top: 0.2%;
+    height: 30px;
+}
+
+.jur_data_head h5 {
+    font-weight: lighter;
+    font-size: 1.75em;
+}
+
+.jur_data_boxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-content: space-between;
+}
+
+.jur_data_box {
+    background-color: #000032;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.jur_data_box h5 {
+    font-weight: bold;
+}
+
+.jur_data_box p {
+    margin-bottom: 0;
+}
+
+.jur_data_alt {
+    text-align: left;
+    color: #000;
+}
+
+.jur_data_alt p {
+    line-height: 0.7em;
+    font-size: 1em;
+}
+
+
+/* ---------------------- Graphs ----------------------*/
+.graph_list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Two columns on larger screens */
+    gap: 1%;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+.graph_list_item {
+    background-color: #f0f3f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    height: 350px;
+    width: 100%;
+    /* Takes up available space */
+    flex: 1;
+    /* Allows the content to grow*/
+    margin-bottom: 0.4%;
+}
+
+.graph_col_1 {
+    height: 99%;
+    width: 97%;
+}
+
+/* Stack graphs in a single column on smaller screens */
+@media only screen and (max-width: 768px) {
+    .graph_list {
+        grid-template-columns: 1fr;
+        /* Single column layout */
+        gap: 0%;
+    }
+
+    .graph_list_item {
+        margin-bottom: 2%;
+    }
+
+    .graph_list_item legend {
+        width: 20px;
+        overflow: scroll;
+    }
+
+    .legendtext {
+        font-size: 0.7em !important;
+    }
+}
+
+
+/* ---------------------- Other Styling ----------------------*/
+/*
+.b3-1 {
+	width: 19%;
+	background-color: #4e63c2;
+}
+.b3-2 {
+	width: 13%;
+	background-color: #4e63c2;
+}
+.b3-1-h5 {
+	margin-top: -1.5%;
+}
+.b3-2-h5 {
+	margin-top: 1.5%;
+}
+.left-a {
+	margin-left: 2.7%;
+}
+.left-b {
+	margin-left: 6%;
+}
+.jur_count {
+    margin-top:3px;
+}
+.c1 {
+	margin-left: 20px;
+	font-size: 10px;
+}
+.c1::marker {
+	content: '■';
+	font-size: 25px;
+	color: #273261;
+}
+.c2 {
+	margin-left: 20px;
+}
+.c2::marker {
+	content: '■';
+	font-size: 25px;
+	color: #4e63c2;
+}
+.c3 {
+	margin-left:20px;
+}
+.c3::marker {
+	content: '■';
+	font-size: 25px;
+	color: #000032;
+}
+.left_indent {
+	margin-left: 20px;
+}
+*/
+
+.button-l {
+    display: inline-block;
+    height: 38px;
+    padding: 0 30px;
+    color: #555;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 38px;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid #bbb;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.button-r {
+    display: inline-block;
+    height: 38px;
+    padding: 0 30px;
+    color: #555;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 38px;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid #bbb;
+    cursor: pointer;
+    box-sizing: border-box;
+}
