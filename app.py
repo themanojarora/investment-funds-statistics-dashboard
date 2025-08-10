@@ -5,9 +5,7 @@ from dash import html, dcc, Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 
-# Create the Dash app
-app = dash.Dash(__name__)
-server = app.server
+
 
 # Load Excel file and NAV sheet
 nav_df = pd.read_excel("data/main.xlsx", sheet_name="NAV")
@@ -27,7 +25,10 @@ external_stylesheets = [
     "assets/dashboard.css"
 ]
 
+# Create the Dash app
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
+
 app.title = "Investment Fund Statistics"
 
 app.layout = html.Div(id="react-entry-point", children=[
