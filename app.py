@@ -9,7 +9,23 @@ import plotly.graph_objects as go
 
 # Load Excel file and NAV sheet
 nav_df = pd.read_excel("data/main.xlsx", sheet_name="NAV")
-derivatives_df = pd.read_excel("data/main.xlsx", sheet_name="Derivatives")
+
+derivatives_dict = {
+    "Country": ["US"] * 6,
+    "Derivative": [
+        "Interest Rate",
+        "Foreign Exchange",
+        "Equity",
+        "Credit",
+        "Commodity",
+        "Other"
+    ],
+    "Long": [4834, 2796, 1143, 534, 230, 180],
+    "Short": [4558, 1996, 1103, 596, 194, 75],
+    "GrossNotionalExposure": [9.392, 4.792, 2.246, 1.13, 0.424, 0.255]
+}
+derivatives_df = pd.DataFrame(derivatives_dict)
+
 assets_df = pd.read_excel("data/main.xlsx", sheet_name="Assets")
 strategy_df = pd.read_excel("data/main.xlsx", sheet_name="InvestmentStrategy")
 geo_df = pd.read_excel("data/main.xlsx", sheet_name="Geo")
