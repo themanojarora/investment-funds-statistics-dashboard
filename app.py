@@ -366,7 +366,7 @@ def update_geo_graph(selected_country):
         "Europe": {"lat": 54, "lon": 15},
         "Asia": {"lat": 30, "lon": 95},
         "South America": {"lat": -15, "lon": -60},
-        "World": {"lat": 0, "lon": 10},  # "World" becomes "Global"
+        "World": {"lat": 25, "lon": -45},  # "World" becomes "Global"
         "Africa": {"lat": 5, "lon": 25}
     }
 
@@ -395,7 +395,7 @@ def update_geo_graph(selected_country):
         text=df["Text"],
         textfont=dict(
             color="black",
-            size=16
+            size=12
         )
     ))
 
@@ -409,15 +409,17 @@ def update_geo_graph(selected_country):
             bgcolor="#e5ecf6"
         ),
         paper_bgcolor="#f7f7f7",
-        margin=dict(t=50, b=20, l=20, r=20),
+        margin=dict(t=40, b=10, l=0, r=0),
         title=dict(
             text="Geographical Investment Areas of Large Hedge Funds",
             x=0.5
         ),
-        height=450
+        height=350
     )
 
     return fig
+
+
 
 if __name__ == '__main__':
     app.run_server(debug=False)
