@@ -211,8 +211,8 @@ def update_derivatives_graph(selected_country):
     fig = px.bar(
         df,
         x="Derivative",
-        y="GrossNationalExposure",
-        labels={"GrossNationalExposure": "Gross Notional Exposure (in USD Trillions)"},
+        y="GrossNotionalExposure",
+        labels={"GrossNotionalExposure": "Gross Notional Exposure (in USD Trillions)"},
         title="Derivatives",
         color="Derivative",
         color_discrete_sequence=["#b8c1e7", "#4e63c2", "#8291d3", "#273261", "#374587"]
@@ -422,4 +422,4 @@ def update_geo_graph(selected_country):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run(debug=False)
