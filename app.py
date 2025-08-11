@@ -115,10 +115,19 @@ app.layout = html.Div(id="react-entry-point", children=[
                     ]),
 
                 html.Div(className="graph_list_item", children=[
-                    html.Div(id="graph_2_fig", className="dash-graph graph_col_2", children=[
-                       dcc.Graph(id="geo_graph", config={"scrollZoom": True, "displayModeBar": True},
-                                )
-                        ])
+                    html.Div(
+                        id="graph_2_fig",
+                        className="dash-graph graph_col_2",
+                        style={"overflowX": "auto"}, 
+                        children=[
+                            dcc.Graph(
+                                id="geo_graph",
+                                style={"minWidth": "1200px"}, 
+                                config={"scrollZoom": True, "displayModeBar": True},
+                            )
+                        ]
+                    )
+
                 ]),
                 html.Div(className="graph_list_item", children=[
                     html.Div(id="graph_3_fig", className="dash-graph graph_col_3", children=[
@@ -354,106 +363,80 @@ def update_strategy_graph(selected_country):
 
 @app.callback(
     Output("geo_graph", "figure"),
-    Input("country_dropdown", "value") 
+    Input("country_dropdown", "value")
 )
 def update_geo_graph(selected_country):
-    df = geo_df[geo_df["Country"] == selected_country]
-    df["Perc"] = df["Amounts"] / df["Amounts"].sum()
-    df["Text"] = df["Label"].replace({"World": "Global"}) + ": " + (df["Perc"] * 100).round(1).astype(str) + "%"
+    df = geo_df[geo_df["Country"] == selected_country].copy()
+    if df.empty:
+        return {"data": [], "layout": {"title": f"No geo data for {selected_country}"}}
 
-    # Manual coordinates for label placement
+    total = df["Amounts"].sum() or 1
+    df["Perc"] = df["Amounts"] / total
+
+    # Labels in your CSV (match the screenshot)
     coord_map = {
         "North America": {"lat": 40, "lon": -100},
-        "Europe": {"lat": 54, "lon": 15},
-        "Asia": {"lat": 30, "lon": 95},
+        "Europe, EEA": {"lat": 54, "lon": 15},
+        "Asia & Pacific (incl. Middle East)": {"lat": 30, "lon": 95},
         "South America": {"lat": -15, "lon": -60},
-        "World": {"lat": 25, "lon": -45},  # "World" becomes "Global"
-        "Africa": {"lat": 5, "lon": 25}
+        "Africa": {"lat": 5, "lon": 25},
+        "World": {"lat": 25, "lon": -45},  # becomes "Global" in text
     }
+    order = list(coord_map.keys())
+
+    # Align rows to coord_map order, fill missing with zero
+    df = df.set_index("Label").reindex(order).fillna(0).reset_index()
 
     fig = go.Figure()
 
-    # ✅ Choropleth layer (optional - shown only if valid country names present)
-    valid_locations = df["Investment Area"].dropna().tolist()
-    if all(isinstance(x, str) and x.lower() not in ["world", "global", "asia", "europe", "north america", "south america", "africa"] for x in valid_locations):
-        fig.add_trace(go.Choropleth(
-            locationmode='country names',
-            locations=df["Investment Area"],
-            z=df["Perc"],
-            colorscale="Purples",
-            showscale=False,
-            marker_line_color='white',
-            zmin=0,
-            zmax=1
-        ))
-
-    # (A) invisible markers that carry hover info
+    # Invisible markers for hover (so it feels interactive)
     fig.add_trace(go.Scattergeo(
         lon=[coord_map[r]["lon"] for r in order],
         lat=[coord_map[r]["lat"] for r in order],
         mode="markers",
-        marker=dict(size=24, opacity=0),  # invisible but easy to hover
-        hovertemplate=(
-            "<b>%{customdata[0]}</b><br>"          # Region label
-            "Share: %{customdata[1]:.1f}%<br>"     # Percent
-            "Amount: %{customdata[2]:,.0f} USD<extra></extra>"
-        ),
+        marker=dict(size=24, opacity=0),
         customdata=list(
             zip(
                 df["Label"].replace({"World": "Global"}),
-                (df["Amounts"] / df["Amounts"].sum() * 100),
+                (df["Perc"] * 100),
                 df["Amounts"],
             )
         ),
+        hovertemplate="<b>%{customdata[0]}</b><br>"
+                      "Share: %{customdata[1]:.1f}%<br>"
+                      "Amount: %{customdata[2]:,.0f} USD<extra></extra>",
         showlegend=False,
+        name=""
     ))
 
-    # (B) your visible text labels on top
+    # Visible text labels on top
     fig.add_trace(go.Scattergeo(
         lon=[coord_map[r]["lon"] for r in order],
         lat=[coord_map[r]["lat"] for r in order],
         mode="text",
         text=df["Label"].replace({"World": "Global"}) + ": " +
-             (df["Amounts"] / df["Amounts"].sum() * 100).round(1).astype(str) + "%",
+             (df["Perc"] * 100).round(1).astype(str) + "%",
         textfont=dict(size=16),
-        hoverinfo="skip",   # hover comes from the markers above
+        hoverinfo="skip",
         showlegend=False,
+        name=""
     ))
 
-    
-    # ✅ Text annotation layer
-    fig.add_trace(go.Scattergeo(
-        lon=[coord_map[region]["lon"] for region in coord_map],
-        lat=[coord_map[region]["lat"] for region in coord_map],
-        mode="text",
-        showlegend=False,
-        text=df["Text"],
-        textfont=dict(
-            color="black",
-            size=12
-        )
-    ))
-
-    # ✅ Final map layout
     fig.update_layout(
         geo=dict(
             projection_type="natural earth",
             showframe=False,
             showcoastlines=True,
             landcolor="white",
-            bgcolor="#e5ecf6"
+            bgcolor="#e5ecf6",
         ),
         paper_bgcolor="#f7f7f7",
         margin=dict(t=40, b=10, l=0, r=0),
-        title=dict(
-            text="Geographical Investment Areas of Large Hedge Funds",
-            x=0.5
-        ),
-        height=350
+        title=dict(text="Geographical Investment Areas of Large Hedge Funds", x=0.5),
+        height=450,
+        width=1200,          # wide figure
+        uirevision="geo"     # keep pan/zoom between updates
     )
-    fig.update_layout(uirevision="geo")  # preserves pan/zoom across dropdown changes
-
-
     return fig
 
 
