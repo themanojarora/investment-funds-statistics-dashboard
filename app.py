@@ -26,7 +26,47 @@ derivatives_dict = {
 }
 derivatives_df = pd.DataFrame(derivatives_dict)
 
-assets_df = pd.read_excel("data/main.xlsx", sheet_name="Assets")
+assets_dict = {
+    "Country": ["US"] * 16,
+    "Asset": [
+        "Cash",
+        "CIU",
+        "Commodities",
+        "Conv. Bonds",
+        "Corp. Bonds",
+        "Digital Assets",
+        "L. EQ.",
+        "Loans",
+        "Muni/Oth. Pub Debt",
+        "Other",
+        "Oth. Asset Classes",
+        "Real Estate",
+        "Repo",
+        "Sov. Bonds",
+        "Str./Sec Products",
+        "UL. EQ."
+    ],
+    "GrossExposure": [
+        1.118,
+        0.046,
+        0.005,
+        0.162,
+        0.401,
+        0.0,
+        3.163,
+        0.533,
+        0.125,
+        0.158,
+        0.0,
+        0.161,
+        3.636,
+        4.022,
+        0.382,
+        0.673
+    ]
+}
+assets_df = pd.DataFrame(assets_dict)
+
 strategy_df = pd.read_excel("data/main.xlsx", sheet_name="InvestmentStrategy")
 geo_df = pd.read_excel("data/main.xlsx", sheet_name="Geo")
 
