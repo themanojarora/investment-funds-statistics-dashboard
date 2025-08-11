@@ -116,7 +116,8 @@ app.layout = html.Div(id="react-entry-point", children=[
 
                 html.Div(className="graph_list_item", children=[
                     html.Div(id="graph_2_fig", className="dash-graph graph_col_2", children=[
-                        dcc.Graph(id="geo_graph",)
+                       dcc.Graph(id="geo_graph", config={"scrollZoom": True, "displayModeBar": True},
+                                )
                         ])
                 ]),
                 html.Div(className="graph_list_item", children=[
@@ -386,6 +387,40 @@ def update_geo_graph(selected_country):
             zmax=1
         ))
 
+    # (A) invisible markers that carry hover info
+    fig.add_trace(go.Scattergeo(
+        lon=[coord_map[r]["lon"] for r in order],
+        lat=[coord_map[r]["lat"] for r in order],
+        mode="markers",
+        marker=dict(size=24, opacity=0),  # invisible but easy to hover
+        hovertemplate=(
+            "<b>%{customdata[0]}</b><br>"          # Region label
+            "Share: %{customdata[1]:.1f}%<br>"     # Percent
+            "Amount: %{customdata[2]:,.0f} USD<extra></extra>"
+        ),
+        customdata=list(
+            zip(
+                df["Label"].replace({"World": "Global"}),
+                (df["Amounts"] / df["Amounts"].sum() * 100),
+                df["Amounts"],
+            )
+        ),
+        showlegend=False,
+    ))
+
+    # (B) your visible text labels on top
+    fig.add_trace(go.Scattergeo(
+        lon=[coord_map[r]["lon"] for r in order],
+        lat=[coord_map[r]["lat"] for r in order],
+        mode="text",
+        text=df["Label"].replace({"World": "Global"}) + ": " +
+             (df["Amounts"] / df["Amounts"].sum() * 100).round(1).astype(str) + "%",
+        textfont=dict(size=16),
+        hoverinfo="skip",   # hover comes from the markers above
+        showlegend=False,
+    ))
+
+    
     # ✅ Text annotation layer
     fig.add_trace(go.Scattergeo(
         lon=[coord_map[region]["lon"] for region in coord_map],
@@ -416,6 +451,8 @@ def update_geo_graph(selected_country):
         ),
         height=350
     )
+    fig.update_layout(uirevision="geo")  # preserves pan/zoom across dropdown changes
+
 
     return fig
 
