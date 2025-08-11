@@ -5,70 +5,11 @@ from dash import html, dcc, Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 
-
-
-# Load Excel file and NAV sheet
-nav_df = pd.read_excel("data/main.xlsx", sheet_name="NAV")
-
-derivatives_dict = {
-    "Country": ["US"] * 6,
-    "Derivative": [
-        "Interest Rate",
-        "Foreign Exchange",
-        "Equity",
-        "Credit",
-        "Commodity",
-        "Other"
-    ],
-    "Long": [4834, 2796, 1143, 534, 230, 180],
-    "Short": [4558, 1996, 1103, 596, 194, 75],
-    "GrossNotionalExposure": [9.392, 4.792, 2.246, 1.13, 0.424, 0.255]
-}
-derivatives_df = pd.DataFrame(derivatives_dict)
-
-assets_dict = {
-    "Country": ["US"] * 16,
-    "Asset": [
-        "Cash",
-        "CIU",
-        "Commodities",
-        "Conv. Bonds",
-        "Corp. Bonds",
-        "Digital Assets",
-        "L. EQ.",
-        "Loans",
-        "Muni/Oth. Pub Debt",
-        "Other",
-        "Oth. Asset Classes",
-        "Real Estate",
-        "Repo",
-        "Sov. Bonds",
-        "Str./Sec Products",
-        "UL. EQ."
-    ],
-    "GrossExposure": [
-        1.118,
-        0.046,
-        0.005,
-        0.162,
-        0.401,
-        0.0,
-        3.163,
-        0.533,
-        0.125,
-        0.158,
-        0.0,
-        0.161,
-        3.636,
-        4.022,
-        0.382,
-        0.673
-    ]
-}
-assets_df = pd.DataFrame(assets_dict)
-
-strategy_df = pd.read_excel("data/main.xlsx", sheet_name="InvestmentStrategy")
-geo_df = pd.read_excel("data/main.xlsx", sheet_name="Geo")
+nav_df = pd.read_csv("data/nav.csv")
+derivatives_df = pd.read_csv("data/derivatives.csv")
+assets_df = pd.read_csv("data/assets.csv")
+strategy_df = pd.read_csv("data/investmentstrategy.csv")
+geo_df = pd.read_csv("data/geo.csv")
 
 # Extract unique values
 unique_fund_types = nav_df['FundType'].dropna().unique()
