@@ -122,7 +122,7 @@ app.layout = html.Div(id="react-entry-point", children=[
                         children=[
                             dcc.Graph(
                                 id="geo_graph",
-                                style={"minWidth": "1200px"}, 
+                                style={"minWidth": "700px"}, 
                                 config={"scrollZoom": True, "displayModeBar": True},
                             )
                         ]
