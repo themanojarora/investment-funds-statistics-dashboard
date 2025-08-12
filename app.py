@@ -433,8 +433,8 @@ def update_geo_graph(selected_country):
         paper_bgcolor="#f7f7f7",
         margin=dict(t=40, b=10, l=0, r=0),
         title=dict(text="Geographical Investment Areas of Large Hedge Funds", x=0.5),
-        height=450,
-        width=1200,          # wide figure
+        height=350,
+        width=700,          # wide figure
         uirevision="geo"     # keep pan/zoom between updates
     )
     return fig
